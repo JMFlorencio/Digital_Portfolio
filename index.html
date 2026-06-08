@@ -264,12 +264,14 @@
       .hero-title { font-size: 2.4rem; white-space: normal; }
     }
     @media (max-width: 680px) {
-      .hero-overlay { align-items: flex-end; padding-bottom: 24px; }
-      .hero-overlay-text { margin-left: 0; padding: 0 20px; width: 100%; }
-      .hero-title { font-size: 1.9rem; white-space: normal; }
-      .hero-contacts { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .hero-overlay-text { margin-left: 48%; padding-right: 12px; }
+      .hero-title { font-size: 1.5rem; white-space: normal; margin-bottom: 8px; }
+      .hero-subtitle { font-size: 0.55rem; letter-spacing: 4px; margin-bottom: 14px; }
+      .hero-rule { margin-bottom: 14px; }
+      .hero-contacts { flex-direction: column; align-items: flex-start; gap: 8px; }
       .hero-contact-sep { display: none; }
-      .hero-contact-item { padding: 0; }
+      .hero-contact-item { padding: 0; font-size: 0.68rem; }
+      .hero-contact-item img { width: 13px; height: 13px; }
     }
 
     /* ===== SECTION WRAPPER ===== */
@@ -630,6 +632,160 @@
       background: #000;
     }
 
+    /* ===== LIGHTBOX — Full-screen Instagram style ===== */
+    .lb-overlay {
+      position: fixed; inset: 0; z-index: 3000;
+      background: #000;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.28s ease;
+      touch-action: none;
+      -webkit-user-select: none; user-select: none;
+    }
+    .lb-overlay.open { opacity: 1; pointer-events: all; }
+
+    /* Full-screen image fills the whole screen — no cropping, no scroll */
+    .lb-img-wrap {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .lb-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      display: block;
+      pointer-events: none;
+      /* subtle zoom-in on open */
+      transform: scale(0.94);
+      transition: transform 0.32s cubic-bezier(0.34,1.3,0.64,1);
+    }
+    .lb-overlay.open .lb-img-wrap img { transform: scale(1); }
+
+    .lb-img-wrap iframe {
+      width: 100%; height: 100%;
+      border: none; display: block;
+    }
+
+    /* Top bar: close X + title */
+    .lb-topbar {
+      position: absolute; top: 0; left: 0; right: 0;
+      padding: 16px 20px;
+      display: flex; align-items: center; gap: 14px;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.72) 0%, transparent 100%);
+      z-index: 10;
+      transform: translateY(-4px);
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .lb-overlay.open .lb-topbar { opacity: 1; transform: translateY(0); }
+
+    .lb-x {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.22);
+      color: #fff; font-size: 1.05rem;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; flex-shrink: 0;
+      transition: background 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .lb-x:hover, .lb-x:active { background: rgba(255,255,255,0.25); }
+
+    .lb-topbar-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.82rem; font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 0.5px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+
+    /* Bottom caption drawer — slides up on tap/hover */
+    .lb-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.90) 0%, rgba(0,0,0,0.70) 60%, transparent 100%);
+      padding: 48px 24px 32px;
+      z-index: 10;
+      transform: translateY(100%);
+      transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
+    }
+    .lb-caption.visible { transform: translateY(0); }
+
+    .lb-cap-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem; font-weight: 800;
+      color: #fff; margin: 0 0 4px 0;
+      letter-spacing: 0.2px;
+    }
+    .lb-cap-sub {
+      font-size: 0.72rem; font-weight: 500;
+      color: rgba(255,255,255,0.55);
+      margin: 0 0 10px 0;
+      letter-spacing: 0.5px;
+    }
+    .lb-cap-desc {
+      font-size: 0.84rem; font-weight: 400;
+      color: rgba(255,255,255,0.82);
+      line-height: 1.7; margin: 0;
+    }
+
+    /* "Hold to view" hint shown briefly on open */
+    .lb-hint {
+      position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
+      background: rgba(255,255,255,0.13);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.75);
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 7px 18px; border-radius: 30px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s;
+      z-index: 11;
+    }
+    .lb-hint.show { opacity: 1; }
+
+    /* Long-press ring indicator */
+    .lb-hold-ring {
+      position: absolute;
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      border: 3px solid rgba(34,85,255,0.0);
+      pointer-events: none;
+      z-index: 20;
+      transform: translate(-50%, -50%) scale(0);
+      transition: border-color 0.1s;
+    }
+    .lb-hold-ring.active {
+      border-color: rgba(34,85,255,0.8);
+      animation: holdRing 0.55s ease-out forwards;
+    }
+    @keyframes holdRing {
+      0%   { transform: translate(-50%,-50%) scale(0.3); opacity: 1; }
+      100% { transform: translate(-50%,-50%) scale(1.2); opacity: 0; }
+    }
+
+    /* Cards cursor */
+    .proj-card:not([data-figma]), .banner-card { cursor: zoom-in; }
+
+    /* "View" pill on cards */
+    .view-full-pill {
+      position: absolute; bottom: 14px; right: 14px;
+      background: rgba(34,85,255,0.88);
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 20px;
+      opacity: 0; pointer-events: none;
+      transform: translateY(5px);
+      transition: opacity 0.22s, transform 0.22s;
+      z-index: 5;
+    }
+    .proj-card:hover .view-full-pill,
+    .banner-card:hover .view-full-pill { opacity: 1; transform: translateY(0); }
+
     /* ===== FOOTER ===== */
     footer {
       background: #020818;
@@ -688,15 +844,15 @@
       .section-container { padding-left: 18px; padding-right: 18px; }
 
       .hero-img { padding-top: 54px; }
-      .hero-overlay { align-items: flex-end; padding-bottom: 20px; }
-      .hero-overlay-text { margin-left: 0; padding: 0 18px; width: 100%; }
-      .hero-title { font-size: 1.75rem; white-space: normal; letter-spacing: -0.5px; }
-      .hero-subtitle { font-size: 0.6rem; letter-spacing: 4px; }
-      .hero-rule { margin-bottom: 14px; }
+      .hero-overlay { align-items: center; }
+      .hero-overlay-text { margin-left: 48%; padding-right: 14px; }
+      .hero-title { font-size: 1.4rem; white-space: normal; letter-spacing: -0.5px; margin-bottom: 8px; }
+      .hero-subtitle { font-size: 0.52rem; letter-spacing: 3.5px; margin-bottom: 12px; }
+      .hero-rule { margin-bottom: 12px; }
       .hero-contacts { flex-direction: column; align-items: flex-start; gap: 8px; }
       .hero-contact-sep { display: none; }
-      .hero-contact-item { padding: 0; font-size: 0.72rem; }
-      .hero-contact-item img { width: 15px; height: 15px; }
+      .hero-contact-item { padding: 0; font-size: 0.65rem; }
+      .hero-contact-item img { width: 13px; height: 13px; }
 
       /* Services — stack vertically on mobile for clean look */
       #services { padding: 56px 0; }
@@ -913,16 +1069,25 @@
       </div>
 
       <!-- Graphics tall -->
-      <div class="proj-card span2" data-cat="graphics">
+      <div class="proj-card span2" data-cat="graphics"
+           data-lb-img="https://i.imgur.com/op1mac2.png"
+           data-lb-title="Graphics & Layout"
+           data-lb-sub="Poster · Social Media Design"
+           data-lb-desc="A bold social media poster designed for SC Beast, featuring high-contrast layout and dynamic typography. Created using Adobe Photoshop and Illustrator for a sharp, eye-catching Instagram presence.">
         <div class="proj-bg" style="background:#020818;height:100%;position:relative;">
           <img src="https://i.imgur.com/op1mac2.png" alt="Graphics & Layout"
             style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:1;" />
         </div>
         <div class="proj-overlay"><div class="proj-info"><span class="proj-title">Graphics & Layout</span><span class="proj-sub">Poster & Social Media Design</span></div></div>
+        <span class="view-full-pill">View Full</span>
       </div>
 
       <!-- 3D Animation -->
-      <div class="proj-card" data-cat="3d">
+      <div class="proj-card" data-cat="3d"
+           data-lb-video="https://streamable.com/e/4jkumj?autoplay=1&muted=1&loop=1"
+           data-lb-title="3D Animation"
+           data-lb-sub="Blender · 3D Render"
+           data-lb-desc="A cinematic 3D animation rendered in Blender, showcasing lighting, materials, and motion. This piece highlights proficiency in 3D modeling and rendering workflows to produce broadcast-quality visuals.">
         <div class="proj-bg" style="background:#000;height:100%;position:relative;">
           <iframe
             src="https://streamable.com/e/4jkumj?autoplay=1&muted=1&loop=1"
@@ -932,10 +1097,15 @@
           ></iframe>
         </div>
         <div class="proj-overlay"><div class="proj-info"><span class="proj-title">3D Animation</span><span class="proj-sub">Blender · 3D Render</span></div></div>
+        <span class="view-full-pill">View Full</span>
       </div>
 
       <!-- Motion Graphics -->
-      <div class="proj-card" data-cat="motion">
+      <div class="proj-card" data-cat="motion"
+           data-lb-video="https://streamable.com/e/9yi0mj?autoplay=1&muted=1&loop=1"
+           data-lb-title="Motion Graphics"
+           data-lb-sub="Adobe Premiere · Animation"
+           data-lb-desc="A fluid motion graphics piece crafted in Adobe Premiere, blending kinetic typography with animated visual elements. Designed for digital campaigns that demand smooth, high-energy movement.">
         <div class="proj-bg" style="background:#000;height:100%;position:relative;">
           <iframe
             src="https://streamable.com/e/9yi0mj?autoplay=1&muted=1&loop=1"
@@ -945,6 +1115,7 @@
           ></iframe>
         </div>
         <div class="proj-overlay"><div class="proj-info"><span class="proj-title">Motion Graphics</span><span class="proj-sub">Adobe Premiere · Animation</span></div></div>
+        <span class="view-full-pill">View Full</span>
       </div>
 
       <!-- UI/UX -->
@@ -963,16 +1134,20 @@
 
     <!-- Sub-category tab strip -->
     <div class="graphics-subfilter fade-up" id="graphicsSubfilter">
-      <button class="sub-tab" data-sub="logos">Logos</button>
+      <button class="sub-tab" data-sub="logos">Logo and Branding</button>
       <button class="sub-tab active" data-sub="posters">Posters</button>
       <button class="sub-tab" data-sub="mockups">Mockups</button>
-      <button class="sub-tab" data-sub="branding">Branding</button>
     </div>
 
     <div class="graphics-grid fade-up" id="graphicsGrid">
 
       <!-- Logo Variations Card 1 — original 4 -->
-      <div class="banner-card" data-cat="graphics" data-sub="logos" id="logoSliderCard">
+      <!-- Logo Variations Card 1 -->
+      <div class="banner-card" data-cat="graphics" data-sub="logos" id="logoSliderCard"
+           data-lb-img="https://i.imgur.com/iLhBRPk.png"
+           data-lb-title="Logo Design Variations"
+           data-lb-sub="Logo · Branding"
+           data-lb-desc="A set of logo design variations exploring different typographic and iconographic styles. Each version balances brand identity with versatility across print and digital applications. Hover or tap to cycle through variations.">
         <div class="bc-inner" style="background: linear-gradient(135deg, #020d3a 0%, #0d2db4 50%, #1a0050 100%);">
           <img class="banner-photo" id="logoSliderImg"
                src="https://i.imgur.com/iLhBRPk.png" alt="Logo Variations"
@@ -984,6 +1159,7 @@
             <span class="proj-sub">Hover / Tap to cycle · Logo</span>
           </div>
         </div>
+        <span class="view-full-pill">View Full</span>
       </div>
       <script>
         (function() {
@@ -1009,8 +1185,12 @@
         })();
       </script>
 
-      <!-- Logo Variations Card 2 — new 4 -->
-      <div class="banner-card" data-cat="graphics" data-sub="logos" id="logoSliderCard2">
+      <!-- Logo Variations Card 2 -->
+      <div class="banner-card" data-cat="graphics" data-sub="logos" id="logoSliderCard2"
+           data-lb-img="https://i.imgur.com/1mw3MHh.png"
+           data-lb-title="Logo Design Variations — Set 2"
+           data-lb-sub="Logo · Branding"
+           data-lb-desc="A second series of logo concepts exploring bold, modern identity design. Each variation demonstrates how color, weight, and shape interact to communicate brand personality.">
         <div class="bc-inner" style="background: linear-gradient(135deg, #020d3a 0%, #0d2db4 50%, #1a0050 100%);">
           <img class="banner-photo" id="logoSliderImg2"
                src="https://i.imgur.com/1mw3MHh.png" alt="Logo Variations 2"
@@ -1022,6 +1202,7 @@
             <span class="proj-sub">Hover / Tap to cycle · Logo</span>
           </div>
         </div>
+        <span class="view-full-pill">View Full</span>
       </div>
       <script>
         (function() {
@@ -1047,8 +1228,47 @@
         })();
       </script>
 
+      <!-- Branding Image 1 -->
+      <div class="banner-card" data-cat="graphics" data-sub="logos"
+           data-lb-img="https://www.image2url.com/r2/default/files/1780894308670-edceef1c-84a3-48c2-ada9-7fdbc6f8f952.png"
+           data-lb-title="Logo and Branding"
+           data-lb-sub="Logo · Graphics &amp; Layout"
+           data-lb-desc="A complete brand identity package featuring a custom logo mark, refined color palette, and typographic system. Designed to communicate trust and professionalism across all touchpoints.">
+        <div class="bc-inner" style="background: linear-gradient(135deg, #020d3a 0%, #0d2db4 50%, #1a0050 100%); overflow:hidden;">
+          <img class="banner-photo" src="https://www.image2url.com/r2/default/files/1780894308670-edceef1c-84a3-48c2-ada9-7fdbc6f8f952.png" alt="Logo and Branding 1">
+        </div>
+        <div class="proj-overlay">
+          <div class="proj-info">
+            <span class="proj-title">Logo and Branding</span>
+            <span class="proj-sub">Logo · Graphics &amp; Layout</span>
+          </div>
+        </div>
+        <span class="view-full-pill">View Full</span>
+      </div>
+
+      <div class="banner-card" data-cat="graphics" data-sub="logos"
+           data-lb-img="https://www.image2url.com/r2/default/images/1780894766396-b7789905-99b7-4db2-9a84-1ac75aa887b3.png"
+           data-lb-title="Logo and Branding — Extended"
+           data-lb-sub="Logo · Graphics &amp; Layout"
+           data-lb-desc="An extended branding exploration showcasing logo usage across multiple contexts and formats. Includes mockup applications to demonstrate real-world scalability and brand cohesion.">
+        <div class="bc-inner" style="background: linear-gradient(135deg, #020d3a 0%, #0d2db4 50%, #1a0050 100%); overflow:hidden;">
+          <img class="banner-photo" src="https://www.image2url.com/r2/default/images/1780894766396-b7789905-99b7-4db2-9a84-1ac75aa887b3.png" alt="Logo and Branding 2">
+        </div>
+        <div class="proj-overlay">
+          <div class="proj-info">
+            <span class="proj-title">Logo and Branding</span>
+            <span class="proj-sub">Logo · Graphics &amp; Layout</span>
+          </div>
+        </div>
+        <span class="view-full-pill">View Full</span>
+      </div>
+
       <!-- Banner 1 — wide hero banner -->
-      <div class="banner-card" data-cat="graphics" data-sub="posters">
+      <div class="banner-card" data-cat="graphics" data-sub="posters"
+           data-lb-img="https://i.imgur.com/op1mac2.png"
+           data-lb-title="Social Media Banner 1"
+           data-lb-sub="Instagram Post · Graphics &amp; Layout"
+           data-lb-desc="An energetic Instagram post for SC Beast.">
         <div class="bc-inner" style="background: linear-gradient(135deg, #020d3a 0%, #0d2db4 50%, #1a0050 100%);">
           <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.08" viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice"><defs><pattern id="g1" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0L0 0 0 40" fill="none" stroke="#fff" stroke-width="0.5"/></pattern></defs><rect width="400" height="225" fill="url(#g1)"/></svg>
           <img class="banner-photo" src="https://i.imgur.com/op1mac2.png" alt="SC Beast">
@@ -1059,10 +1279,15 @@
             <span class="proj-sub">Instagram Post · Graphics & Layout</span>
           </div>
         </div>
+        <span class="view-full-pill">View Full</span>
       </div>
 
       <!-- Banner 2 — tall portrait -->
-      <div class="banner-card" data-cat="graphics" data-sub="posters" >
+      <div class="banner-card" data-cat="graphics" data-sub="posters"
+           data-lb-img="https://i.imgur.com/lNpV9xe.png"
+           data-lb-title="Social Media Banner 2"
+           data-lb-sub="Instagram Post · Graphics &amp; Layout"
+           data-lb-desc="A vertical promotional banner for SC Gadget Center, combining sleek product photography with clean layout grids. Optimized for Instagram Stories and Feed.">>
         <div class="bc-inner" style="background: linear-gradient(180deg, #040c25 0%, #0a1a5c 60%, #0d2db4 100%);">
           <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.06" viewBox="0 0 200 356" preserveAspectRatio="xMidYMid slice"><circle cx="100" cy="100" r="80" fill="none" stroke="#fff" stroke-width="0.8"/><circle cx="100" cy="100" r="50" fill="none" stroke="#fff" stroke-width="0.5"/><circle cx="100" cy="260" r="60" fill="none" stroke="#2255ff" stroke-width="0.8"/></svg>
           <img class="banner-photo" src="https://i.imgur.com/lNpV9xe.png" alt="SC Gadget Center">
@@ -1073,10 +1298,15 @@
             <span class="proj-sub">Instagram Post · Graphics & Layout</span>
           </div>
         </div>
+        <span class="view-full-pill">View Full</span>
       </div>
 
       <!-- Banner 3 -->
-      <div class="banner-card" data-cat="graphics" data-sub="posters">
+      <div class="banner-card" data-cat="graphics" data-sub="posters"
+           data-lb-img="https://i.imgur.com/yukQ4vC.png"
+           data-lb-title="Social Media Banner 3"
+           data-lb-sub="Instagram Post · Graphics &amp; Layout"
+           data-lb-desc="A product-focused banner for SC Gadget Center highlighting featured tech items. Uses strong diagonal composition and contrast to draw the viewer's eye.">
         <div class="bc-inner" style="background: linear-gradient(135deg, #0d2db4 0%, #020d3a 100%);">
           <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.1" viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice"><polygon points="160,20 300,160 20,160" fill="none" stroke="#fff" stroke-width="0.8"/><polygon points="160,50 270,160 50,160" fill="none" stroke="#2255ff" stroke-width="0.5"/></svg>
           <img class="banner-photo" src="https://i.imgur.com/yukQ4vC.png" alt="SC Gadget Center 1">
@@ -1087,10 +1317,15 @@
             <span class="proj-sub">Instagram Post · Graphics & Layout</span>
           </div>
         </div>
+        <span class="view-full-pill">View Full</span>
       </div>
 
       <!-- Banner 4 -->
-      <div class="banner-card" data-cat="graphics" data-sub="posters">
+      <div class="banner-card" data-cat="graphics" data-sub="posters"
+           data-lb-img="https://i.imgur.com/yWWbQeV.png"
+           data-lb-title="Social Media Banner 4"
+           data-lb-sub="Instagram Post · Graphics &amp; Layout"
+           data-lb-desc="A promotional sale graphic for SC Gadget Center with bold price callouts and structured layout. Designed for clarity and immediate visual impact on Instagram.">
         <div class="bc-inner" style="background: linear-gradient(135deg, #060e30 0%, #1a3fd4 100%);">
           <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.08" viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice"><line x1="0" y1="0" x2="320" y2="180" stroke="#fff" stroke-width="0.6"/><line x1="320" y1="0" x2="0" y2="180" stroke="#fff" stroke-width="0.6"/><rect x="80" y="45" width="160" height="90" fill="none" stroke="#2255ff" stroke-width="0.8"/></svg>
           <img class="banner-photo" src="https://i.imgur.com/yWWbQeV.png" alt="SC Gadget Center 2">
@@ -1102,10 +1337,15 @@
             <span class="proj-sub">Instagram Post · Graphics & Layout</span>
           </div>
         </div>
+        <span class="view-full-pill">View Full</span>
       </div>
 
       <!-- Banner 5 — wide -->
-      <div class="banner-card" data-cat="graphics" data-sub="posters">
+      <div class="banner-card" data-cat="graphics" data-sub="posters"
+           data-lb-img="https://i.imgur.com/kYD1Zk0.png"
+           data-lb-title="Social Media Banner 5"
+           data-lb-sub="Instagram Post · Graphics &amp; Layout"
+           data-lb-desc="An event announcement poster for an SC Multimedia Seminar, with a sleek dark theme and structured information hierarchy. Clean, professional, and shareable.">
         <div class="bc-inner" style="background: linear-gradient(135deg, #020818 0%, #0d2db4 40%, #020818 100%);">
           <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.07" viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice"><circle cx="200" cy="112" r="90" fill="none" stroke="#fff" stroke-width="0.8"/><circle cx="200" cy="112" r="60" fill="none" stroke="#2255ff" stroke-width="0.6"/><circle cx="200" cy="112" r="30" fill="none" stroke="#fff" stroke-width="0.4"/></svg>
           <img class="banner-photo" src="https://i.imgur.com/kYD1Zk0.png" alt="SC MM Seminar">
@@ -1116,10 +1356,15 @@
             <span class="proj-sub">Instagram Post · Graphics & Layout</span>
           </div>
         </div>
+        <span class="view-full-pill">View Full</span>
       </div>
 
       <!-- Banner 6 -->
-      <div class="banner-card" data-cat="graphics" data-sub="posters">
+      <div class="banner-card" data-cat="graphics" data-sub="posters"
+           data-lb-img="https://i.imgur.com/WQPXHEN.png"
+           data-lb-title="Social Media Banner 6"
+           data-lb-sub="Instagram Post · Graphics &amp; Layout"
+           data-lb-desc="A formal communication graphic for SC SDO, designed with institutional clarity in mind. Uses authoritative typography and structured layout for credibility.">
         <div class="bc-inner" style="background: linear-gradient(180deg, #0a1a5c 0%, #020818 100%);">
           <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.09" viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice"><path d="M0 90 Q80 20 160 90 Q240 160 320 90" fill="none" stroke="#fff" stroke-width="0.8"/><path d="M0 90 Q80 40 160 90 Q240 140 320 90" fill="none" stroke="#2255ff" stroke-width="0.5"/></svg>
           <img class="banner-photo" src="https://i.imgur.com/WQPXHEN.png" alt="SC SDO">
@@ -1130,10 +1375,15 @@
             <span class="proj-sub">Instagram Post · Graphics & Layout</span>
           </div>
         </div>
+        <span class="view-full-pill">View Full</span>
       </div>
 
       <!-- Banner 7 -->
-      <div class="banner-card" data-cat="graphics" data-sub="posters">
+      <div class="banner-card" data-cat="graphics" data-sub="posters"
+           data-lb-img="https://i.imgur.com/m0HLC2Q.png"
+           data-lb-title="Social Media Banner 7"
+           data-lb-sub="Instagram Post · Graphics &amp; Layout"
+           data-lb-desc="A skills development campaign banner for SC SKIL, balancing informative content with visual energy. Designed to inspire engagement and drive awareness.">
         <div class="bc-inner" style="background: linear-gradient(135deg, #040c25 0%, #0d2db4 60%, #040c25 100%);">
           <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.08" viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice"><rect x="20" y="20" width="280" height="140" rx="12" fill="none" stroke="#fff" stroke-width="0.8"/><rect x="40" y="40" width="240" height="100" rx="8" fill="none" stroke="#2255ff" stroke-width="0.5"/></svg>
           <img class="banner-photo" src="https://i.imgur.com/m0HLC2Q.png" alt="SC SKIL">
@@ -1144,40 +1394,38 @@
             <span class="proj-sub">Instagram Post · Graphics & Layout</span>
           </div>
         </div>
-      </div>
-
-      <!-- Branding 1 -->
-      <div class="banner-card" data-cat="graphics" data-sub="branding">
-        <div class="bc-inner" style="background: linear-gradient(135deg, #020d3a 0%, #0d2db4 50%, #1a0050 100%);">
-          <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.08" viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice"><circle cx="160" cy="90" r="70" fill="none" stroke="#fff" stroke-width="0.8"/><circle cx="160" cy="90" r="45" fill="none" stroke="#2255ff" stroke-width="0.5"/></svg>
-          <img class="banner-photo" src="https://images.pexels.com/photos/37852024/pexels-photo-37852024.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Proposal Branding for Multimedia Seminar">
-        </div>
-        <div class="proj-overlay">
-          <div class="proj-info">
-            <span class="proj-title">Proposal Branding for Multimedia Seminar</span>
-            <span class="proj-sub">Branding · Graphics & Layout</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Branding 2 -->
-      <div class="banner-card" data-cat="graphics" data-sub="branding">
-        <div class="bc-inner" style="background: linear-gradient(135deg, #040c25 0%, #0d2db4 60%, #040c25 100%);">
-          <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.08" viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice"><rect x="20" y="20" width="280" height="140" rx="12" fill="none" stroke="#fff" stroke-width="0.8"/><rect x="40" y="40" width="240" height="100" rx="8" fill="none" stroke="#2255ff" stroke-width="0.5"/></svg>
-          <img class="banner-photo" src="https://i.imgur.com/3Mubiiu.png" alt="VIDA Visual Identity">
-        </div>
-        <div class="proj-overlay">
-          <div class="proj-info">
-            <span class="proj-title">VIDA Visual Identity</span>
-            <span class="proj-sub">Branding · Graphics & Layout</span>
-          </div>
-        </div>
+        <span class="view-full-pill">View Full</span>
       </div>
 
     </div><!-- end graphicsGrid -->
     </div><!-- end graphicsSection -->
   </div>
 </section>
+
+<!-- LIGHTBOX MODAL — Full-screen Instagram style -->
+<div class="lb-overlay" id="lbOverlay">
+  <!-- Top bar -->
+  <div class="lb-topbar">
+    <button class="lb-x" id="lbX" aria-label="Close">✕</button>
+    <span class="lb-topbar-title" id="lbTopTitle"></span>
+  </div>
+
+  <!-- Full-screen image/video -->
+  <div class="lb-img-wrap" id="lbImgWrap"></div>
+
+  <!-- Long-press ring effect -->
+  <div class="lb-hold-ring" id="lbHoldRing"></div>
+
+  <!-- Bottom caption (tap/long-press to reveal) -->
+  <div class="lb-caption" id="lbCaption">
+    <p class="lb-cap-title" id="lbTitle"></p>
+    <p class="lb-cap-sub"   id="lbSub"></p>
+    <p class="lb-cap-desc"  id="lbDesc"></p>
+  </div>
+
+  <!-- Hint pill -->
+  <div class="lb-hint" id="lbHint">Tap to see description</div>
+</div>
 
 <!-- FIGMA PROTOTYPE MODAL -->
 <div class="figma-modal-overlay" id="figmaModalOverlay">
@@ -1304,8 +1552,12 @@
     const grid = getGraphicsGrid();
     if (!grid) return;
     grid.querySelectorAll('.banner-card').forEach(card => {
-      card.style.setProperty('display', card.dataset.sub === sub ? 'block' : 'none', 'important');
+      const match = card.dataset.sub === sub;
+      card.style.setProperty('display', match ? 'block' : 'none', 'important');
     });
+    grid.style.display = 'none';
+    grid.offsetHeight;
+    grid.style.display = 'grid';
   }
 
   /* Use event delegation on the subfilter container so it always works */
@@ -1365,10 +1617,148 @@
     });
   });
 
+  /* ---- Lightbox — Instagram-style full-screen ---- */
+  const lbOverlay   = document.getElementById('lbOverlay');
+  const lbImgWrap   = document.getElementById('lbImgWrap');
+  const lbTopTitle  = document.getElementById('lbTopTitle');
+  const lbTitle     = document.getElementById('lbTitle');
+  const lbSub       = document.getElementById('lbSub');
+  const lbDesc      = document.getElementById('lbDesc');
+  const lbCaption   = document.getElementById('lbCaption');
+  const lbHint      = document.getElementById('lbHint');
+  const lbHoldRing  = document.getElementById('lbHoldRing');
+  const lbX         = document.getElementById('lbX');
+
+  let captionVisible = false;
+  let hintTimer = null;
+
+  function openLightbox(el) {
+    const img   = el.dataset.lbImg;
+    const video = el.dataset.lbVideo;
+    const title = el.dataset.lbTitle || '';
+    const sub   = el.dataset.lbSub   || '';
+    const desc  = el.dataset.lbDesc  || '';
+
+    lbImgWrap.innerHTML = '';
+    if (video) {
+      const iframe = document.createElement('iframe');
+      iframe.src = video;
+      iframe.allow = 'autoplay; fullscreen';
+      iframe.allowFullscreen = true;
+      lbImgWrap.appendChild(iframe);
+    } else if (img) {
+      const image = document.createElement('img');
+      image.src = img;
+      image.alt = title;
+      lbImgWrap.appendChild(image);
+    }
+
+    lbTopTitle.textContent = title;
+    lbTitle.textContent    = title;
+    lbSub.innerHTML        = sub;
+    lbDesc.textContent     = desc;
+
+    captionVisible = false;
+    lbCaption.classList.remove('visible');
+
+    lbOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+
+    // Show hint briefly
+    clearTimeout(hintTimer);
+    lbHint.classList.add('show');
+    hintTimer = setTimeout(() => lbHint.classList.remove('show'), 2400);
+  }
+
+  function closeLightbox() {
+    lbOverlay.classList.remove('open');
+    captionVisible = false;
+    lbCaption.classList.remove('visible');
+    lbHint.classList.remove('show');
+    document.body.style.overflow = '';
+    setTimeout(() => { lbImgWrap.innerHTML = ''; }, 300);
+  }
+
+  function toggleCaption() {
+    captionVisible = !captionVisible;
+    lbCaption.classList.toggle('visible', captionVisible);
+    if (captionVisible) lbHint.classList.remove('show');
+  }
+
+  /* Long-press inside lightbox (mobile) */
+  let holdTimer = null;
+  let holdTriggered = false;
+
+  function startHold(e) {
+    const touch = e.touches ? e.touches[0] : e;
+    lbHoldRing.style.left = touch.clientX + 'px';
+    lbHoldRing.style.top  = touch.clientY + 'px';
+    lbHoldRing.classList.remove('active');
+    void lbHoldRing.offsetWidth;
+    lbHoldRing.classList.add('active');
+    holdTriggered = false;
+    clearTimeout(holdTimer);
+    holdTimer = setTimeout(() => {
+      holdTriggered = true;
+      toggleCaption();
+    }, 500);
+  }
+
+  function endHold() {
+    clearTimeout(holdTimer);
+    lbHoldRing.classList.remove('active');
+    if (!holdTriggered) toggleCaption();
+  }
+
+  function cancelHold() {
+    clearTimeout(holdTimer);
+    lbHoldRing.classList.remove('active');
+    holdTriggered = false;
+  }
+
+  lbImgWrap.addEventListener('touchstart', startHold, { passive: true });
+  lbImgWrap.addEventListener('touchend',   endHold,   { passive: true });
+  lbImgWrap.addEventListener('touchmove',  cancelHold,{ passive: true });
+  lbImgWrap.addEventListener('click', toggleCaption);
+
+  lbX.addEventListener('click', (e) => { e.stopPropagation(); closeLightbox(); });
+  lbOverlay.addEventListener('click', (e) => { if (e.target === lbOverlay) closeLightbox(); });
+  lbCaption.addEventListener('click', (e) => { e.stopPropagation(); toggleCaption(); });
+
+  document.addEventListener('keydown', (e) => {
+    if (!lbOverlay.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggleCaption(); }
+  });
+
+  /* Swipe down to close */
+  let swipeStartY = 0;
+  lbOverlay.addEventListener('touchstart', (e) => { swipeStartY = e.touches[0].clientY; }, { passive: true });
+  lbOverlay.addEventListener('touchend', (e) => {
+    if (e.changedTouches[0].clientY - swipeStartY > 80) closeLightbox();
+  }, { passive: true });
+
+  /* Attach to all non-Figma cards */
+  document.querySelectorAll('.proj-card:not([data-figma]), .banner-card').forEach(card => {
+    if (!(card.dataset.lbImg || card.dataset.lbVideo)) return;
+
+    // Desktop click
+    card.addEventListener('click', () => openLightbox(card));
+
+    // Mobile long-press on card (500ms hold)
+    let cardHold = null;
+    card.addEventListener('touchstart', () => {
+      cardHold = setTimeout(() => openLightbox(card), 500);
+    }, { passive: true });
+    card.addEventListener('touchend',  () => clearTimeout(cardHold), { passive: true });
+    card.addEventListener('touchmove', () => clearTimeout(cardHold), { passive: true });
+  });
+
   window.addEventListener('resize', () => {
     const activeBtn = document.querySelector('.filter-btn.active');
     if (activeBtn) applyFilter(activeBtn.dataset.filter);
   });
+
 </script>
 
 </body>
