@@ -1127,6 +1127,7 @@
       <button class="sub-tab" data-sub="logos">Logo and Branding</button>
       <button class="sub-tab active" data-sub="posters">Posters</button>
       <button class="sub-tab" data-sub="mockups">Mockups</button>
+      <button class="sub-tab" data-sub="feedposting">E-commerce Feedposting</button>
     </div>
 
     <div class="graphics-grid fade-up" id="graphicsGrid">
@@ -1299,46 +1300,96 @@
 
       </div>
 
-      <!-- E-commerce Feedpost Design — 10-slide carousel -->
-      <div class="banner-card" data-cat="graphics" data-sub="posters" id="feedpostSliderCard"
+      <!-- E-commerce Feedpost Design — 10 slides, all visible -->
+      <div class="banner-card" data-cat="graphics" data-sub="feedposting"
+           data-lb-start="0"
            data-lb-images='["https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_2.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_3.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_4.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_5.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_6.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_7.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_8.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_9.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_10.png"]'>
         <div class="bc-inner" style="background: linear-gradient(135deg, #020d3a 0%, #0d2db4 50%, #1a0050 100%);">
-          <img class="banner-photo" id="feedpostSliderImg"
-               src="https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost.png" alt="E-commerce Feedpost Design"
-               style="transition: opacity 0.4s ease;">
+          <img class="banner-photo" src="https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost.png" alt="E-commerce Feedpost Design 1">
         </div>
-        <div class="proj-overlay"><div class="proj-info"><span class="proj-title">E-commerce Feedpost Design</span><span class="proj-sub">ArfixStudio · Instagram Carousel</span></div></div>
-        <span class="hold-hint">Hold to view</span>
+        <div class="proj-overlay"><div class="proj-info"><span class="proj-title">E-commerce Feedpost Design</span><span class="proj-sub">Slide 1 / 10 · ArfixStudio</span></div></div>
       </div>
-      <script>
-        (function() {
-          const slides = [
-            'https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost.png',
-            'https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_2.png',
-            'https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_3.png',
-            'https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_4.png',
-            'https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_5.png',
-            'https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_6.png',
-            'https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_7.png',
-            'https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_8.png',
-            'https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_9.png',
-            'https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_10.png'
-          ];
-          let idx = 0, intervalId = null;
-          const card = document.getElementById('feedpostSliderCard');
-          const img  = document.getElementById('feedpostSliderImg');
-          function nextSlide() {
-            img.style.opacity = '0';
-            setTimeout(() => { idx = (idx + 1) % slides.length; img.src = slides[idx]; img.style.opacity = '1'; }, 300);
-          }
-          function startCycling() { if (intervalId) return; intervalId = setInterval(nextSlide, 700); }
-          function stopCycling()  { clearInterval(intervalId); intervalId = null; }
-          card.addEventListener('mouseenter', startCycling);
-          card.addEventListener('mouseleave', stopCycling);
-          let tapOn = false;
-          card.addEventListener('touchstart', (e) => { e.preventDefault(); tapOn = !tapOn; tapOn ? startCycling() : stopCycling(); }, { passive: false });
-        })();
-      </script>
+
+      <div class="banner-card" data-cat="graphics" data-sub="feedposting"
+           data-lb-start="1"
+           data-lb-images='["https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_2.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_3.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_4.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_5.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_6.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_7.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_8.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_9.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_10.png"]'>
+        <div class="bc-inner" style="background: linear-gradient(135deg, #020d3a 0%, #0d2db4 50%, #1a0050 100%);">
+          <img class="banner-photo" src="https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_2.png" alt="E-commerce Feedpost Design 2">
+        </div>
+        <div class="proj-overlay"><div class="proj-info"><span class="proj-title">E-commerce Feedpost Design</span><span class="proj-sub">Slide 2 / 10 · ArfixStudio</span></div></div>
+      </div>
+
+      <div class="banner-card" data-cat="graphics" data-sub="feedposting"
+           data-lb-start="2"
+           data-lb-images='["https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_2.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_3.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_4.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_5.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_6.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_7.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_8.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_9.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_10.png"]'>
+        <div class="bc-inner" style="background: linear-gradient(135deg, #020d3a 0%, #0d2db4 50%, #1a0050 100%);">
+          <img class="banner-photo" src="https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_3.png" alt="E-commerce Feedpost Design 3">
+        </div>
+        <div class="proj-overlay"><div class="proj-info"><span class="proj-title">E-commerce Feedpost Design</span><span class="proj-sub">Slide 3 / 10 · ArfixStudio</span></div></div>
+      </div>
+
+      <div class="banner-card" data-cat="graphics" data-sub="feedposting"
+           data-lb-start="3"
+           data-lb-images='["https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_2.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_3.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_4.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_5.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_6.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_7.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_8.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_9.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_10.png"]'>
+        <div class="bc-inner" style="background: linear-gradient(135deg, #020d3a 0%, #0d2db4 50%, #1a0050 100%);">
+          <img class="banner-photo" src="https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_4.png" alt="E-commerce Feedpost Design 4">
+        </div>
+        <div class="proj-overlay"><div class="proj-info"><span class="proj-title">E-commerce Feedpost Design</span><span class="proj-sub">Slide 4 / 10 · ArfixStudio</span></div></div>
+      </div>
+
+      <div class="banner-card" data-cat="graphics" data-sub="feedposting"
+           data-lb-start="4"
+           data-lb-images='["https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_2.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_3.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_4.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_5.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_6.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_7.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_8.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_9.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_10.png"]'>
+        <div class="bc-inner" style="background: linear-gradient(135deg, #020d3a 0%, #0d2db4 50%, #1a0050 100%);">
+          <img class="banner-photo" src="https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_5.png" alt="E-commerce Feedpost Design 5">
+        </div>
+        <div class="proj-overlay"><div class="proj-info"><span class="proj-title">E-commerce Feedpost Design</span><span class="proj-sub">Slide 5 / 10 · ArfixStudio</span></div></div>
+      </div>
+
+      <div class="banner-card" data-cat="graphics" data-sub="feedposting"
+           data-lb-start="5"
+           data-lb-images='["https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_2.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_3.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_4.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_5.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_6.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_7.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_8.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_9.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_10.png"]'>
+        <div class="bc-inner" style="background: linear-gradient(135deg, #020d3a 0%, #0d2db4 50%, #1a0050 100%);">
+          <img class="banner-photo" src="https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_6.png" alt="E-commerce Feedpost Design 6">
+        </div>
+        <div class="proj-overlay"><div class="proj-info"><span class="proj-title">E-commerce Feedpost Design</span><span class="proj-sub">Slide 6 / 10 · ArfixStudio</span></div></div>
+      </div>
+
+      <div class="banner-card" data-cat="graphics" data-sub="feedposting"
+           data-lb-start="6"
+           data-lb-images='["https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_2.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_3.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_4.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_5.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_6.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_7.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_8.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_9.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_10.png"]'>
+        <div class="bc-inner" style="background: linear-gradient(135deg, #020d3a 0%, #0d2db4 50%, #1a0050 100%);">
+          <img class="banner-photo" src="https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_7.png" alt="E-commerce Feedpost Design 7">
+        </div>
+        <div class="proj-overlay"><div class="proj-info"><span class="proj-title">E-commerce Feedpost Design</span><span class="proj-sub">Slide 7 / 10 · ArfixStudio</span></div></div>
+      </div>
+
+      <div class="banner-card" data-cat="graphics" data-sub="feedposting"
+           data-lb-start="7"
+           data-lb-images='["https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_2.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_3.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_4.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_5.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_6.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_7.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_8.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_9.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_10.png"]'>
+        <div class="bc-inner" style="background: linear-gradient(135deg, #020d3a 0%, #0d2db4 50%, #1a0050 100%);">
+          <img class="banner-photo" src="https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_8.png" alt="E-commerce Feedpost Design 8">
+        </div>
+        <div class="proj-overlay"><div class="proj-info"><span class="proj-title">E-commerce Feedpost Design</span><span class="proj-sub">Slide 8 / 10 · ArfixStudio</span></div></div>
+      </div>
+
+      <div class="banner-card" data-cat="graphics" data-sub="feedposting"
+           data-lb-start="8"
+           data-lb-images='["https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_2.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_3.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_4.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_5.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_6.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_7.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_8.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_9.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_10.png"]'>
+        <div class="bc-inner" style="background: linear-gradient(135deg, #020d3a 0%, #0d2db4 50%, #1a0050 100%);">
+          <img class="banner-photo" src="https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_9.png" alt="E-commerce Feedpost Design 9">
+        </div>
+        <div class="proj-overlay"><div class="proj-info"><span class="proj-title">E-commerce Feedpost Design</span><span class="proj-sub">Slide 9 / 10 · ArfixStudio</span></div></div>
+      </div>
+
+      <div class="banner-card" data-cat="graphics" data-sub="feedposting"
+           data-lb-start="9"
+           data-lb-images='["https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_2.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_3.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_4.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_5.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_6.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_7.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_8.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_9.png","https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_10.png"]'>
+        <div class="bc-inner" style="background: linear-gradient(135deg, #020d3a 0%, #0d2db4 50%, #1a0050 100%);">
+          <img class="banner-photo" src="https://raw.githubusercontent.com/JMFlorencio/Digital_Portfolio/main/assets/ArfixStudio_Ecommerce_Feedpost_10.png" alt="E-commerce Feedpost Design 10">
+        </div>
+        <div class="proj-overlay"><div class="proj-info"><span class="proj-title">E-commerce Feedpost Design</span><span class="proj-sub">Slide 10 / 10 · ArfixStudio</span></div></div>
+      </div>
 
     </div><!-- end graphicsGrid -->
     </div><!-- end graphicsSection -->
@@ -1616,7 +1667,7 @@
       lbCaptionWrap.style.display = 'none';
     } else {
       currentImages = imagesAttr ? JSON.parse(imagesAttr) : [el.dataset.lbImg];
-      currentIndex  = 0;
+      currentIndex  = parseInt(el.dataset.lbStart, 10) || 0;
       renderLbImage();
       lbCaptionWrap.style.display = 'block';
     }
